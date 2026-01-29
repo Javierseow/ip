@@ -2,14 +2,24 @@ import java.util.Scanner;
 
 public class Jackson {
 
-    public static void printList(String[] items, int itemCount) {
-        if (itemCount == 0) {
+    public static void printList(Task[] items) {
+        if (Task.getTaskCount() == 0) {
             System.out.println("Your list is empty bro");
         } else {
-            for (int i = 0; i < itemCount; i++) {
+            System.out.println("Here's your list bro");
+            for (int i = 0; i < Task.getTaskCount(); i++) {
                 System.out.print((i+1) + ". ");
-                System.out.println(items[i]);
+                System.out.print("[" + items[i].getStatusIcon() + "] ");
+                System.out.println(items[i].getDescription());
             }
+        }
+    }
+
+    public static void updateMarkStatus (Task[] items, String instruction, int taskNumber) {
+        if (instruction.startsWith("mark")) {
+            items[taskNumber-1].markAsDone();
+        } else {
+            items[taskNumber-1].markAsUndone();
         }
     }
 
@@ -19,16 +29,29 @@ public class Jackson {
         System.out.println("What can I do for you?");
 
         String line = in.nextLine();
-        String[] items = new String[100];
-        int itemCount = 0;
+        Task[] items = new Task[100];
 
         while (!line.equals("bye")) {
             if (line.equals("list")) {
-                printList(items, itemCount);
+                printList(items);
+            } else if (line.startsWith("mark") || line.startsWith("unmark")) {
+                String[] words = line.split(" ");
+                int taskNumber = Integer.parseInt(words[1]);
+                if (taskNumber > Task.getTaskCount() || taskNumber <= 0) {
+                    System.out.println("Error, invalid task");
+                } else {
+                    updateMarkStatus(items, words[0], taskNumber);
+                    if (line.startsWith("mark")) {
+                        System.out.println("Okay, I've marked task "
+                                + taskNumber + " as done");
+                    } else {
+                        System.out.println("Okay, I've marked task "
+                                + taskNumber + " as not done yet");
+                    }
+                }
             } else {
                 System.out.println("Added: " + line);
-                items[itemCount] = line;
-                itemCount++;
+                items[Task.getTaskCount()] = new Task(line);
             }
             line = in.nextLine();
         }
