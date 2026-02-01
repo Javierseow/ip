@@ -44,9 +44,11 @@ public class Jackson {
                     if (line.startsWith("mark")) {
                         System.out.println("Okay, I've marked task "
                                 + taskNumber + " as done");
+                        System.out.println("   [X] " + items[(taskNumber-1)].getDescription());
                     } else {
                         System.out.println("Okay, I've marked task "
                                 + taskNumber + " as not done yet");
+                        System.out.println("   [ ] " + items[(taskNumber-1)].getDescription());
                     }
                 }
             } else {
