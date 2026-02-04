@@ -8,9 +8,8 @@ public class Jackson {
         } else {
             System.out.println("Here's your list bro");
             for (int i = 0; i < Task.getTaskCount(); i++) {
-                System.out.print((i+1) + ". ");
-                System.out.print("[" + items[i].getStatusIcon() + "] ");
-                System.out.println(items[i].getDescription());
+                System.out.print((i+1) + ".");
+                System.out.println(items[i]);
             }
         }
     }
@@ -23,6 +22,22 @@ public class Jackson {
         }
     }
 
+    public static void addTask (Task[] items, String taskType, String description) {
+        if (taskType.equals("todo")) {
+            items[Task.getTaskCount()] = new Todo(description);
+            return;
+        }
+        String[] taskInfo = description.split("/");
+        if (taskType.equals("deadline")) {
+            items[Task.getTaskCount()] = new Deadline(taskInfo[0].trim(),
+                    taskInfo[1].trim().substring(3).trim());
+            return;
+        }
+        items[Task.getTaskCount()] = new Event(taskInfo[0].trim(),
+                taskInfo[1].trim().substring(5).trim(),
+                taskInfo[2].trim().substring(3).trim());
+    }
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         System.out.println("Hello, I'm Jackson");
@@ -32,11 +47,14 @@ public class Jackson {
         Task[] items = new Task[100];
 
         while (!line.equals("bye")) {
-            if (line.equals("list")) {
+            String[] words = line.trim().split(" ", 2);
+            switch (words[0]) {
+            case "list":
                 printList(items);
-            } else if (line.startsWith("mark") || line.startsWith("unmark")) {
-                String[] words = line.split(" ");
-                int taskNumber = Integer.parseInt(words[1]);
+                break;
+            case "mark":
+            case "unmark":
+                int taskNumber = Integer.parseInt(words[1].trim());
                 if (taskNumber > Task.getTaskCount() || taskNumber <= 0) {
                     System.out.println("Error, invalid task");
                 } else {
@@ -44,16 +62,29 @@ public class Jackson {
                     if (line.startsWith("mark")) {
                         System.out.println("Okay, I've marked task "
                                 + taskNumber + " as done");
-                        System.out.println("   [X] " + items[(taskNumber-1)].getDescription());
                     } else {
                         System.out.println("Okay, I've marked task "
                                 + taskNumber + " as not done yet");
-                        System.out.println("   [ ] " + items[(taskNumber-1)].getDescription());
                     }
+                    System.out.print("  ");
+                    System.out.println(items[taskNumber-1]);
                 }
-            } else {
-                System.out.println("Added: " + line);
-                items[Task.getTaskCount()] = new Task(line);
+                break;
+            case "todo":
+            case "deadline":
+            case "event":
+                System.out.println("Got it. I've added this task:");
+                System.out.print("  ");
+                addTask(items, words[0], words[1].trim());
+                System.out.println(items[Task.getTaskCount()-1]);
+                System.out.print("Now you have " + Task.getTaskCount() + " task");
+                if (Task.getTaskCount() > 1) {
+                    System.out.print("s");
+                }
+                System.out.println(" in the list");
+                break;
+            default:
+                System.out.println("Yo bro your instruction is invalid");
             }
             line = in.nextLine();
         }
