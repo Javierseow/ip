@@ -4,5 +4,8 @@ hello
 event go party /from sunday 10am /to sunday 10pm
 list
 unmark 5
+mark wew
+unmark
 mark 2
+list
 bye

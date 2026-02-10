@@ -59,18 +59,25 @@ public class Jackson {
 
             case "mark":
             case "unmark":
-                int taskNumber = Integer.parseInt(words[1].trim());
+                try {
+                    int taskNumber = Integer.parseInt(words[1].trim());
 
-                if (taskNumber > Task.getTaskCount() || taskNumber <= 0) {
-                    System.out.println("Error, invalid task");
-                    break;
+                    if (taskNumber > Task.getTaskCount() || taskNumber <= 0) {
+                        throw new JacksonException();
+                    }
+
+                    updateMarkStatus(items, words[0], taskNumber);
+                    String status = line.startsWith("mark") ? "done" : "not done yet";
+                    System.out.println("Okay, I've marked task " + taskNumber + " as " + status);
+                    System.out.print("  ");
+                    System.out.println(items[taskNumber - 1]);
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Pls provide a task number to mark");
+                } catch (NumberFormatException e) {
+                    System.out.println("Bro ur task number ain't valid lol");
+                } catch (JacksonException e) {
+                    System.out.println("Bro that task doesn't exist");
                 }
-
-                updateMarkStatus(items, words[0], taskNumber);
-                String status = line.startsWith("mark") ? "done" : "not done yet";
-                System.out.println("Okay, I've marked task " + taskNumber + " as " + status);
-                System.out.print("  ");
-                System.out.println(items[taskNumber - 1]);
                 break;
 
             case "todo":
