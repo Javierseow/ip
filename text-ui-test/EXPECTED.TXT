@@ -14,7 +14,13 @@ Here's your list bro
 1.[T][ ] wake up
 2.[D][ ] do cs2113 (by: friday)
 3.[E][ ] go party (from: sunday 10am to: sunday 10pm)
-Error, invalid task
+Bro that task doesn't exist
+Bro ur task number ain't valid lol
+Pls provide a task number to mark
 Okay, I've marked task 2 as done
   [D][X] do cs2113 (by: friday)
+Here's your list bro
+1.[T][ ] wake up
+2.[D][X] do cs2113 (by: friday)
+3.[E][ ] go party (from: sunday 10am to: sunday 10pm)
 Bye. Hope to see you again soon!
