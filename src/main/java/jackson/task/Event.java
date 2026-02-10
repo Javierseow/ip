@@ -1,3 +1,5 @@
+package jackson.task;
+
 public class Event extends Task {
     protected String to;
     protected String from;
