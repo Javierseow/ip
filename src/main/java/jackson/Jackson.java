@@ -1,4 +1,11 @@
+package jackson;
+
 import java.util.Scanner;
+import jackson.task.Task;
+import jackson.task.Todo;
+import jackson.task.Deadline;
+import jackson.task.Event;
+import jackson.exception.JacksonException;
 
 public class Jackson {
     static final int MAX_SIZE = 100;
