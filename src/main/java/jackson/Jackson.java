@@ -64,6 +64,14 @@ public class Jackson {
                 taskInfo[2].trim().substring(3).trim()));
     }
 
+    public static void printNumberOfItems(ArrayList<Task> items) {
+        System.out.print("Now you have " + items.size() + " task");
+        if (items.size() != 1) {
+            System.out.print("s");
+        }
+        System.out.println(" in the list");
+    }
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         System.out.println("Hello, I'm Jackson");
@@ -111,16 +119,29 @@ public class Jackson {
                     }
                     addTask(items, words[0], words[1].trim());
 
-                    System.out.println("Got it. I've added this task:");
+                    System.out.println("Aight. I've added this task:");
                     System.out.print("  ");
                     System.out.println(items.get(items.size() - 1));
-                    System.out.print("Now you have " + items.size() + " task");
-                    if (items.size() > 1) {
-                        System.out.print("s");
-                    }
-                    System.out.println(" in the list");
+                    printNumberOfItems(items);
                 } catch (JacksonException e) {
                     System.out.println(e.getMessage());
+                }
+                break;
+
+            case "delete":
+                try {
+                    int indexToRemove = Integer.parseInt(words[1].trim()) - 1;
+                    Task removedItem = items.remove(indexToRemove);
+                    System.out.println("Aight. I've removed this task:");
+                    System.out.print("  ");
+                    System.out.println(removedItem);
+                    printNumberOfItems(items);
+                } catch (NumberFormatException e) {
+                    System.out.println("Eh, pls give a valid task number");
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    System.out.println("Bro what task do u wanna delete?");
+                } catch (IndexOutOfBoundsException e) {
+                    System.out.println("Error, the task doesn't exist");
                 }
                 break;
 
