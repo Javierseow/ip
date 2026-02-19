@@ -11,13 +11,13 @@ import jackson.exception.JacksonException;
 public class Jackson {
 
     public static void printList(ArrayList<Task> items) {
-        if (Task.getTaskCount() == 0) {
+        if (items.isEmpty()) {
             System.out.println("Your list is empty bro");
             return;
         }
 
         System.out.println("Here's your list bro");
-        for (int i = 0; i < Task.getTaskCount(); i++) {
+        for (int i = 0; i < items.size(); i++) {
             System.out.print((i + 1) + ".");
             System.out.println(items.get(i));
         }
@@ -84,7 +84,7 @@ public class Jackson {
                 try {
                     int taskNumber = Integer.parseInt(words[1].trim());
 
-                    if (taskNumber > Task.getTaskCount() || taskNumber <= 0) {
+                    if (taskNumber > items.size() || taskNumber <= 0) {
                         throw new JacksonException("Bro that task doesn't exist");
                     }
 
@@ -114,8 +114,8 @@ public class Jackson {
                     System.out.println("Got it. I've added this task:");
                     System.out.print("  ");
                     System.out.println(items.get(items.size() - 1));
-                    System.out.print("Now you have " + Task.getTaskCount() + " task");
-                    if (Task.getTaskCount() > 1) {
+                    System.out.print("Now you have " + items.size() + " task");
+                    if (items.size() > 1) {
                         System.out.print("s");
                     }
                     System.out.println(" in the list");
