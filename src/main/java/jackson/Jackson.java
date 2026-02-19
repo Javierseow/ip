@@ -1,7 +1,11 @@
 package jackson;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.FileWriter;
 import java.util.Scanner;
 import java.util.ArrayList;
+import java.io.File;
 import jackson.task.Task;
 import jackson.task.Todo;
 import jackson.task.Deadline;
@@ -72,13 +76,75 @@ public class Jackson {
         System.out.println(" in the list");
     }
 
+    public static void makeFile() {
+        try {
+            File folder = new File("./data");
+            folder.mkdirs();
+
+            File file = new File("./data/jackson.txt");
+            file.createNewFile();
+
+        } catch (IOException e) {
+            System.out.println("Error loading file" + e.getMessage());
+        }
+    }
+
+    public static void loadFile(ArrayList<Task> items) {
+        try {
+            File file = new File("./data/jackson.txt");
+            Scanner fileIn = new Scanner(file);
+
+            while (fileIn.hasNextLine()) {
+                String line = fileIn.nextLine();
+                String[] taskInfo = line.split("\\|");
+                addTask(items, taskInfo[0].trim(), taskInfo[2].trim());
+                if (taskInfo[1].trim().equals("X")) {
+                    updateMarkStatus(items, "mark", items.size());
+                }
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error loading file");
+        } catch (JacksonException e) {
+            System.out.println("Error loading past data");
+        }
+    }
+
+    public static void saveCurrentData(ArrayList<Task> items) {
+        try {
+            FileWriter fileWriter = new FileWriter("./data/jackson.txt");
+            for (Task item : items) {
+                if (item == null) {
+                    continue;
+                }
+                String lineToSave;
+                if (item instanceof Todo) {
+                    lineToSave = "todo | " + item.getStatusIcon() + " | " + item.getDescription();
+                } else if (item instanceof Deadline deadlineTask) {
+                    lineToSave = "deadline | " + deadlineTask.getStatusIcon() + " | " + deadlineTask.getDescription()
+                            + " /by " + deadlineTask.getBy();
+                } else if (item instanceof Event eventTask) {
+                    lineToSave = "event | " + eventTask.getStatusIcon() + " | " + eventTask.getDescription()
+                            + " /from " + eventTask.getFrom() + " /to " + eventTask.getTo();
+                } else {
+                    throw new IOException();
+                }
+                fileWriter.write(lineToSave + System.lineSeparator());
+            }
+            fileWriter.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks");
+        }
+    }
+
     public static void main(String[] args) {
         Scanner in = new Scanner(System.in);
         System.out.println("Hello, I'm Jackson");
         System.out.println("What can I do for you?");
 
-        String line = in.nextLine();
         ArrayList<Task> items = new ArrayList<>();
+        makeFile();
+        loadFile(items);
+        String line = in.nextLine();
 
         while (!line.equals("bye")) {
             String[] words = line.trim().split(" ", 2);
@@ -151,5 +217,6 @@ public class Jackson {
             line = in.nextLine();
         }
         System.out.println("Bye. Hope to see you again soon!");
+        saveCurrentData(items);
     }
 }
