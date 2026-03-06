@@ -65,7 +65,7 @@ public class TaskList {
 
             int indexToRemove = Integer.parseInt(inputs[1]) - 1;
             Task removedItem = tasks.remove(indexToRemove);
-            System.out.println("Aight. I've removed this task:");
+            System.out.print("Aight. I've removed this task:");
             System.out.print("  ");
             System.out.println(removedItem);
         } catch (NumberFormatException e) {
@@ -98,6 +98,26 @@ public class TaskList {
             throw new JacksonException("Pls provide a task number to mark");
         } catch (NumberFormatException e) {
             throw new JacksonException("Bro ur task number ain't valid lol");
+        }
+    }
+
+    public void findTask(String line) throws JacksonException {
+        try {
+            String keyword = Parser.splitInput(line, " ", 2)[1].trim();
+            Ui.showMessage("Here are the matching tasks in your list:");
+            boolean taskExists = false;
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.get(i).getDescription().contains(keyword)) {
+                    System.out.print((i + 1) + ".");
+                    System.out.println(tasks.get(i));
+                    taskExists = true;
+                }
+            }
+            if (!taskExists) {
+                Ui.showMessage("Rip bro got no tasks that match your word");
+            }
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new JacksonException("bro u didn't say any keyword");
         }
     }
 

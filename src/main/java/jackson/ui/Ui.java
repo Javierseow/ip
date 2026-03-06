@@ -29,7 +29,7 @@ public class Ui {
         System.out.println(message);
     }
 
-    public static void showErrorMessage(String message) {
+    public void showErrorMessage(String message) {
         System.out.println(message);
     }
 
