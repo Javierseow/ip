@@ -65,7 +65,7 @@ public class TaskList {
 
             int indexToRemove = Integer.parseInt(inputs[1]) - 1;
             Task removedItem = tasks.remove(indexToRemove);
-            System.out.print("Aight. I've removed this task:");
+            System.out.println("Aight. I've removed this task:");
             System.out.print("  ");
             System.out.println(removedItem);
         } catch (NumberFormatException e) {

@@ -22,7 +22,7 @@ public class Jackson {
             storage.makeFile();
             tasks = storage.loadFile();
         } catch (JacksonException e) {
-            ui.showErrorMessage(e.getMessage());
+            Ui.showErrorMessage(e.getMessage());
             tasks = new TaskList();
         }
     }
@@ -44,7 +44,7 @@ public class Jackson {
                     int taskNumber = tasks.updateMarkStatus(tasks, line);
                     ui.printStatus(instruction, taskNumber, tasks.getItemAtIndex(taskNumber - 1));
                 } catch (JacksonException e) {
-                    ui.showErrorMessage(e.getMessage());
+                    Ui.showErrorMessage(e.getMessage());
                 }
                 break;
 
@@ -56,7 +56,7 @@ public class Jackson {
                     ui.printTaskAdded(tasks.getItemAtIndex(tasks.size() - 1));
                     ui.printNumberOfItems(tasks);
                 } catch (JacksonException e) {
-                    ui.showErrorMessage(e.getMessage());
+                    Ui.showErrorMessage(e.getMessage());
                 }
                 break;
 
@@ -65,7 +65,7 @@ public class Jackson {
                     tasks.deleteTask(line);
                     ui.printNumberOfItems(tasks);
                 } catch (JacksonException e) {
-                    ui.showErrorMessage(e.getMessage());
+                    Ui.showErrorMessage(e.getMessage());
                 }
                 break;
 
@@ -73,7 +73,7 @@ public class Jackson {
                 try {
                     tasks.findTask(line);
                 } catch (JacksonException e) {
-                    ui.showErrorMessage(e.getMessage());
+                    Ui.showErrorMessage(e.getMessage());
                 }
                 break;
 
