@@ -77,7 +77,7 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Error saving tasks");
+            Ui.showErrorMessage("Error saving tasks");
         }
     }
 }

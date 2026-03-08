@@ -28,6 +28,9 @@ public class Ui {
     public static void showMessage(String message) {
         System.out.println(message);
     }
+    public static void showMessageNoLine(String message) {
+        System.out.print(message);
+    }
 
     public static void showErrorMessage(String message) {
         System.out.println(message);

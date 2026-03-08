@@ -11,12 +11,10 @@ public class Jackson {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private Parser parser;
 
     public Jackson(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        parser = new Parser();
 
         try {
             storage.makeFile();
@@ -32,7 +30,7 @@ public class Jackson {
         String line = ui.readCommand().trim();
 
         while (!line.equals("bye")) {
-            String instruction = parser.getCommandWord(line);
+            String instruction = Parser.getCommandWord(line);
             switch (instruction) {
             case "list":
                 ui.printList(tasks);
@@ -44,7 +42,7 @@ public class Jackson {
                     int taskNumber = tasks.updateMarkStatus(tasks, line);
                     ui.printStatus(instruction, taskNumber, tasks.getItemAtIndex(taskNumber - 1));
                 } catch (JacksonException e) {
-                    System.out.println(e.getMessage());
+                    Ui.showErrorMessage(e.getMessage());
                 }
                 break;
 
@@ -56,7 +54,7 @@ public class Jackson {
                     ui.printTaskAdded(tasks.getItemAtIndex(tasks.size() - 1));
                     ui.printNumberOfItems(tasks);
                 } catch (JacksonException e) {
-                    System.out.println(e.getMessage());
+                    Ui.showErrorMessage(e.getMessage());
                 }
                 break;
 

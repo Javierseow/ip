@@ -1,7 +1,7 @@
 package jackson.parser;
 
 public class Parser {
-    public String getCommandWord(String line) {
+    public static String getCommandWord(String line) {
         return line.trim().split(" ")[0];
     }
 
