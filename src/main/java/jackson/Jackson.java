@@ -7,17 +7,27 @@ import jackson.exception.JacksonException;
 import jackson.tasklist.TaskList;
 import jackson.ui.Ui;
 
+/**
+ * The main entry point for the Jackson task management application.
+ * This class coordinates the user interface, storage, and logic components
+ * to manage the application's lifecycle.
+ */
 public class Jackson {
 
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private Parser parser;
 
+    /**
+     * Initializes the Jackson application with a specific file path for data storage.
+     * It sets up the UI and Storage components, ensures the data file exists,
+     * and attempts to load existing tasks.
+     *
+     * @param filePath The relative or absolute path to the file where tasks are saved.
+     */
     public Jackson(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        parser = new Parser();
 
         try {
             storage.makeFile();
@@ -28,6 +38,11 @@ public class Jackson {
         }
     }
 
+    /**
+     * Starts the main execution loop of the application.
+     * It displays a welcome message and repeatedly processes user input
+     * until an exit command is received.
+     */
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
@@ -43,7 +58,11 @@ public class Jackson {
         }
     }
 
-
+    /**
+     * Main method that serves as the starting point for the JVM.
+     *
+     * @param args Command line arguments (not used).
+     */
     public static void main(String[] args) {
         new Jackson("./data/jackson.txt").run();
     }
