@@ -2,8 +2,6 @@ package jackson.ui;
 
 import jackson.task.Task;
 import jackson.tasklist.TaskList;
-
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Ui {
@@ -14,11 +12,11 @@ public class Ui {
     }
 
     public void showWelcome() {
-        System.out.println("Hello, I'm Jackson\nWhat can I do for you?");
+        showMessage("Hello, I'm Jackson\nWhat can I do for you?");
     }
 
     public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+        showMessage("Bye. Hope to see you again soon!");
     }
 
     public String readCommand() {
@@ -28,6 +26,9 @@ public class Ui {
     public static void showMessage(String message) {
         System.out.println(message);
     }
+    public static void showMessageNoLine(String message) {
+        System.out.print(message);
+    }
 
     public static void showErrorMessage(String message) {
         System.out.println(message);
@@ -35,35 +36,41 @@ public class Ui {
 
     public void printList(TaskList tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("Your list is empty bro");
+            showMessage("Your list is empty bro");
             return;
         }
 
         System.out.println("Here's your list bro");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.print((i + 1) + ".");
-            System.out.println(tasks.getItemAtIndex(i));
+            showMessageNoLine((i + 1) + ".");
+            showMessage(String.valueOf(TaskList.getItemAtIndex(i)));
         }
     }
 
     public void printNumberOfItems(TaskList tasks) {
-        System.out.print("Now you have " + tasks.size() + " task");
+        showMessageNoLine("Now you have " + tasks.size() + " task");
         if (tasks.size() != 1) {
-            System.out.print("s");
+            showMessageNoLine("s");
         }
-        System.out.println(" in the list");
+        showMessage(" in the list");
     }
 
     public void printStatus(String command, int taskNumber, Task task) {
         String status = command.startsWith("mark") ? "done" : "not done yet";
-        System.out.println("Okay, I've marked task " + taskNumber + " as " + status);
-        System.out.print("  ");
-        System.out.println(task);
+        showMessage("Okay, I've marked task " + taskNumber + " as " + status);
+        showMessageNoLine("  ");
+        showMessage(String.valueOf(task));
     }
 
     public void printTaskAdded(Task taskAdded) {
-        System.out.println("Aight. I've added this task:");
-        System.out.print("  ");
-        System.out.println(taskAdded);
+        showMessage("Aight. I've added this task:");
+        showMessageNoLine("  ");
+        showMessage(String.valueOf(taskAdded));
+    }
+
+    public void printTaskDeleted(Task taskDeleted) {
+        showMessage("Aight. I've removed this task:");
+        showMessageNoLine("  ");
+        showMessage(String.valueOf(taskDeleted));
     }
 }
