@@ -12,10 +12,12 @@ public class Jackson {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private Parser parser;
 
     public Jackson(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
+        parser = new Parser();
 
         try {
             storage.makeFile();

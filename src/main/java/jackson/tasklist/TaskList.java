@@ -1,10 +1,12 @@
 package jackson.tasklist;
 
 import jackson.exception.JacksonException;
+import jackson.parser.Parser;
 import jackson.task.Deadline;
 import jackson.task.Event;
 import jackson.task.Task;
 import jackson.task.Todo;
+import jackson.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -37,6 +39,10 @@ public class TaskList {
         } else {
             getItemAtIndex(taskNumber).markAsUndone();
         }
+    }
+
+    public boolean findTask(int index, String keyword) throws JacksonException {
+        return tasks.get(index).getDescription().contains(keyword);
     }
 
     public boolean isEmpty() {

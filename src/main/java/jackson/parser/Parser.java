@@ -5,6 +5,7 @@ import jackson.command.*;
 import jackson.exception.JacksonException;
 import jackson.task.Task;
 import jackson.tasklist.TaskList;
+import jackson.ui.Ui;
 
 public class Parser {
     public static String getCommandWord(String line) {
@@ -32,6 +33,9 @@ public class Parser {
 
         case "delete":
             return new DeleteCommand(line);
+
+        case "find":
+            return new FindCommand(line);
 
         case "bye":
             return new ExitCommand();
@@ -113,6 +117,23 @@ public class Parser {
             throw new JacksonException("Pls provide a task number to mark");
         } catch (NumberFormatException e) {
             throw new JacksonException("Bro ur task number ain't valid lol");
+        }
+    }
+
+    public static boolean findTask(String line, TaskList tasks) throws JacksonException {
+        try {
+            String keyword = Parser.splitInput(line, " ", 2)[1].trim();
+            boolean taskExists = false;
+            for (int i = 0; i < tasks.size(); i++) {
+                if (tasks.findTask(i, keyword)) {
+                    Ui.showMessageNoLine((i + 1) + ".");
+                    Ui.showMessage(String.valueOf(TaskList.getItemAtIndex(i)));
+                    taskExists = true;
+                }
+            }
+            return taskExists;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new JacksonException("bro u didn't say any keyword");
         }
     }
 }
