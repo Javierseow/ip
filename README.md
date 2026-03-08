@@ -7,7 +7,7 @@ tasks. Whether it's a simple to-do or a multi-day event, Jackson has your back.
 1. Ensure you have Java 17 or above installed.
 2. Download the latest jackson.jar from our Releases page.
 3. Open a terminal, navigate to the folder containing the file, and run:
-   `java -jar jackson.jar` to run the application
+   `java -jar ip.jar` to run the application
 4. You should see the greeting message
 ```
 Hello, I'm Jackson
@@ -87,6 +87,14 @@ Expected Output:
 ```
 Okay, I've marked task 1 as done
   [T][X] fix my gym routine
+```
+
+Example: `unmark 1`
+
+Expected Output:
+```
+Okay, I've marked task 1 as not done yet
+  [T][ ] fix my gym routine
 ```
 
 ### 6. Finding Tasks: find
