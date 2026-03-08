@@ -1,13 +1,8 @@
 package jackson.ui;
 
-import jackson.parser.Parser;
 import jackson.task.Task;
 import jackson.tasklist.TaskList;
-
-import java.util.ArrayList;
 import java.util.Scanner;
-
-import jackson.tasklist.TaskList;
 
 public class Ui {
     private Scanner sc;
@@ -48,7 +43,7 @@ public class Ui {
         System.out.println("Here's your list bro");
         for (int i = 0; i < tasks.size(); i++) {
             showMessageNoLine((i + 1) + ".");
-            showMessage(String.valueOf(tasks.getItemAtIndex(i)));
+            showMessage(String.valueOf(TaskList.getItemAtIndex(i)));
         }
     }
 

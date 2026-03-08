@@ -52,7 +52,7 @@ public class Storage {
             return tasks;
         } catch (FileNotFoundException e) {
             throw new JacksonException("Error loading file");
-        } catch (JacksonException e) {
+        } catch (JacksonException | ArrayIndexOutOfBoundsException e) {
             throw new JacksonException("Errors found in file, creating new list for you");
         }
     }

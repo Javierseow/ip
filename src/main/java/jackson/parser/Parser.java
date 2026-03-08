@@ -1,5 +1,7 @@
 package jackson.parser;
 
+import jackson.Jackson;
+import jackson.command.*;
 import jackson.exception.JacksonException;
 import jackson.task.Task;
 import jackson.tasklist.TaskList;
@@ -11,6 +13,32 @@ public class Parser {
 
     public static String[] splitInput(String line, String splitCharacter, int maxSplit) {
         return line.trim().split("\\s*" + splitCharacter + "\\s*", maxSplit);
+    }
+
+    public static Command parse(String line) throws JacksonException {
+        String instruction = getCommandWord(line);
+        switch (instruction) {
+        case "list":
+            return new ListCommand();
+
+        case "mark":
+        case "unmark":
+            return new MarkCommand(line, instruction);
+
+        case "todo":
+        case "deadline":
+        case "event":
+            return new AddCommand(line);
+
+        case "delete":
+            return new DeleteCommand(line);
+
+        case "bye":
+            return new ExitCommand();
+
+        default:
+            return new InvalidCommand();
+        }
     }
 
     public static void addTask(String line) throws JacksonException {
