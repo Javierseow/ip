@@ -1,5 +1,6 @@
 package jackson;
 
+import jackson.command.Command;
 import jackson.parser.Parser;
 import jackson.storage.Storage;
 import jackson.exception.JacksonException;

@@ -1,10 +1,12 @@
 package jackson.tasklist;
 
 import jackson.exception.JacksonException;
+import jackson.parser.Parser;
 import jackson.task.Deadline;
 import jackson.task.Event;
 import jackson.task.Task;
 import jackson.task.Todo;
+import jackson.ui.Ui;
 
 import java.util.ArrayList;
 
@@ -39,24 +41,8 @@ public class TaskList {
         }
     }
 
-    public void findTask(String line) throws JacksonException {
-        try {
-            String keyword = Parser.splitInput(line, " ", 2)[1].trim();
-            Ui.showMessage("Here are the matching tasks in your list:");
-            boolean taskExists = false;
-            for (int i = 0; i < tasks.size(); i++) {
-                if (tasks.get(i).getDescription().contains(keyword)) {
-                    System.out.print((i + 1) + ".");
-                    System.out.println(tasks.get(i));
-                    taskExists = true;
-                }
-            }
-            if (!taskExists) {
-                Ui.showMessage("Rip bro got no tasks that match your word");
-            }
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new JacksonException("bro u didn't say any keyword");
-        }
+    public boolean findTask(int index, String keyword) throws JacksonException {
+        return tasks.get(index).getDescription().contains(keyword);
     }
 
     public boolean isEmpty() {
