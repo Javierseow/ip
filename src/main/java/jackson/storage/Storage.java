@@ -1,5 +1,6 @@
 package jackson.storage;
 
+import jackson.parser.Parser;
 import jackson.task.Task;
 import jackson.task.Todo;
 import jackson.task.Event;
@@ -43,14 +44,16 @@ public class Storage {
             while (fileIn.hasNextLine()) {
                 String line = fileIn.nextLine();
                 String[] lineSplit = line.split("\\|");
-                tasks.addTask(lineSplit[1].trim());
+                Parser.addTask(lineSplit[1].trim());
                 if (lineSplit[0].trim().equals("X")) {
-                    tasks.updateMarkStatus(tasks, "mark " + tasks.size());
+                    Parser.updateMarkStatus(tasks, "mark " + tasks.size());
                 }
             }
             return tasks;
         } catch (FileNotFoundException e) {
             throw new JacksonException("Error loading file");
+        } catch (JacksonException | ArrayIndexOutOfBoundsException e) {
+            throw new JacksonException("Errors found in file, creating new list for you");
         }
     }
 
@@ -77,7 +80,7 @@ public class Storage {
             }
             fileWriter.close();
         } catch (IOException e) {
-            System.out.println("Error saving tasks");
+            Ui.showErrorMessage("Error saving tasks");
         }
     }
 }
