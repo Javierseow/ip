@@ -36,7 +36,6 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws JacksonException {
-        Ui.showMessage("Here are the matching tasks in your list:");
         boolean taskExists = false;
         taskExists = Parser.findTask(line, tasks);
         if (!taskExists) {

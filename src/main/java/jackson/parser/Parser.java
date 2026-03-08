@@ -187,6 +187,9 @@ public class Parser {
             String keyword = Parser.splitInput(line, " ", 2)[1].trim();
             boolean taskExists = false;
             for (int i = 0; i < tasks.size(); i++) {
+                if (i == 0) {
+                    Ui.showMessage("Here are the matching tasks in your list:");
+                }
                 if (tasks.findTask(i, keyword)) {
                     Ui.showMessageNoLine((i + 1) + ".");
                     Ui.showMessage(String.valueOf(TaskList.getItemAtIndex(i)));
