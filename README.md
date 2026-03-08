@@ -19,6 +19,7 @@ What can I do for you?
 ### Command Format notes
 - Parameters in UPPER_CASE are user inputs (e.g. DESCRIPTION)
 - Extra words in commands that don't take parameters (e.g. list or bye) will be ignored
+- Commands are case-sensitive
 
 
 ### 1. Adding a Todo: todo
@@ -107,7 +108,7 @@ Example: `find gym`
 Expected Output:
 ```
 Here are the matching tasks in your list:
-1.[T][X] fix my gym routine
+1.[T][ ] fix my gym routine
 ```
 
 ### 7. Deleting Tasks: delete

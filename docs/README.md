@@ -19,6 +19,7 @@ What can I do for you?
 ### Command Format notes
 - Parameters in UPPER_CASE are user inputs (e.g. DESCRIPTION)
 - Extra words in commands that don't take parameters (e.g. list or bye) will be ignored
+- Commands are case-sensitive
 
 
 ### 1. Adding a Todo: todo
