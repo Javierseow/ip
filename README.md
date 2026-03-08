@@ -1,26 +1,132 @@
-# Jackson project template
+# Jackson User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Jackson is a CLI (Command Line Interface) based task management assistant that helps you keep track of your everyday
+tasks. Whether it's a simple to-do or a multi-day event, Jackson has your back.
 
-## Setting up in Intellij
+### Quick Start
+1. Ensure you have Java 17 or above installed.
+2. Download the latest jackson.jar from our Releases page.
+3. Open a terminal, navigate to the folder containing the file, and run:
+   `java -jar jackson.jar` to run the application
+4. You should see the greeting message
+```
+Hello, I'm Jackson
+What can I do for you?
+```
+5. Type list to see your tasks or follow the instructions below to add new ones!
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Features
+### Command Format notes
+- Parameters in UPPER_CASE are user inputs (e.g. DESCRIPTION)
+- Extra words in commands that don't take parameters (e.g. list or bye) will be ignored
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Jackson.java` file, right-click it, and choose `Run Jackson.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+### 1. Adding a Todo: todo
+- Adds a basic task without any specific date or time.
+
+Format: `todo DESCRIPTION`
+
+Example: `todo fix my gym routine`
+
+Expected Output:
+```
+Aight. I've added this task:
+  [T][ ] fix my gym routine
+Now you have 1 task in the list
+```
+
+### 2. Adding a Deadline: deadline
+- Adds a task that needs to be done by a specific time.
+
+Format: `deadline DESCRIPTION /by TIME`
+
+Example: `deadline submit assignment /by Monday 2pm`
+
+Expected Output:
+```
+Aight. I've added this task:
+  [D][ ] submit assignment (by: Monday 2pm)
+Now you have 2 tasks in the list
+```
+
+### 3. Adding an Event: event
+- Adds a task that has a start and end time.
+
+Format: `event DESCRIPTION /from START /to END`
+
+Example: `event career fair /from 10am /to 4pm`
+
+Expected Output:
+```
+Aight. I've added this task:
+  [E][ ] career fair (from: 10am to: 4pm)
+Now you have 3 tasks in the list
+```
+
+### 4. Listing Tasks: list
+- Shows all the tasks currently in your list.
+
+Format: `list`
+
+Expected Output:
+```
+Here's your list bro
+1.[T][ ] fix my gym routine
+2.[D][ ] submit assignment (by: Monday 2pm)
+3.[E][ ] career fair (from: 10am to: 4pm)
+```
+
+### 5. Marking Tasks: mark / unmark
+- Updates the status of a task to completed or incomplete.
+
+Format: `mark INDEX` or `unmark INDEX` (where INDEX is the number in the list)
+
+Example: `mark 1`
+
+Expected Output:
+```
+Okay, I've marked task 1 as done
+  [T][X] fix my gym routine
+```
+
+### 6. Finding Tasks: find
+- Search for tasks that contain a specific keyword in their description.
+
+Format: `find KEYWORD`
+
+Example: `find gym`
+
+Expected Output:
+```
+Here are the matching tasks in your list:
+1.[T][X] fix my gym routine
+```
+
+### 7. Deleting Tasks: delete
+- Removes a task from your list permanently.
+
+Format: `delete INDEX` (where INDEX is the number in the list)
+
+Example: `delete 2`
+
+Expected Output:
+```
+Aight. I've removed this task:
+  [D][ ] submit assignment (by: Monday 2pm)
+Now you have 2 tasks in the list
+```
+
+### 8. Exiting: bye
+- Saves your data and closes the application.
+
+Format: `bye`
+
+Expected Output:
+```
+Bye. Hope to see you again soon!
+```
+
+## Data Archiving
+- Jackson automatically saves your data in a text file located at `./data/jackson.txt`, and loads it back up
+  when u start it up again
+- You don't need to manually save or load; Jackson handles it every time you say bye.
