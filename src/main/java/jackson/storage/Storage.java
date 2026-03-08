@@ -15,14 +15,28 @@ import java.io.IOException;
 import java.io.FileWriter;
 import java.util.Scanner;
 
+/**
+ * Deals with loading tasks from the file and saving tasks in the file.
+ * This class handles all disk I/O operations for the Jackson application.
+ */
 public class Storage {
     private final String filePath;
 
+    /**
+     * Initializes a Storage instance with a specific file path.
+     *
+     * @param filePath The path to the data file where tasks are stored.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
-    public void makeFile() throws JacksonException{
+    /**
+     * Creates the data directory and file if they do not already exist.
+     *
+     * @throws JacksonException If an I/O error occurs during directory or file creation.
+     */
+    public void makeFile() throws JacksonException {
         try {
             File folder = new File("./data");
             folder.mkdirs();
@@ -35,7 +49,14 @@ public class Storage {
         }
     }
 
-    public TaskList loadFile() throws JacksonException{
+    /**
+     * Loads the task list from the hard drive.
+     * Parses each line of the data file and populates a new TaskList.
+     *
+     * @return A TaskList populated with tasks from the file.
+     * @throws JacksonException If the file is missing or contains corrupted data.
+     */
+    public TaskList loadFile() throws JacksonException {
         try {
             File file = new File(filePath);
             Scanner fileIn = new Scanner(file);
@@ -57,6 +78,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves the current task list to the hard drive.
+     * Formats tasks into a text-based representation for storage.
+     *
+     * @param tasks The TaskList containing the tasks to be saved.
+     */
     public void saveCurrentData(TaskList tasks) {
         try {
             FileWriter fileWriter = new FileWriter(filePath);
