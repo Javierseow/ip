@@ -1,14 +1,14 @@
 # Jackson User Guide
 
-Jackson is a CLI (Command Line Interface) based task management assistant that helps you keep track of your everyday 
+Jackson is a CLI (Command Line Interface) based task management assistant that helps you keep track of your everyday
 tasks. Whether it's a simple to-do or a multi-day event, Jackson has your back.
 
 ### Quick Start
 1. Ensure you have Java 17 or above installed.
 2. Download the latest jackson.jar from our Releases page.
 3. Open a terminal, navigate to the folder containing the file, and run:
-`java -jar jackson.jar` to run the application
-4. You should see the greeting message 
+   `java -jar jackson.jar` to run the application
+4. You should see the greeting message
 ```
 Hello, I'm Jackson
 What can I do for you?
@@ -128,5 +128,5 @@ Bye. Hope to see you again soon!
 
 ## Data Archiving
 - Jackson automatically saves your data in a text file located at `./data/jackson.txt`, and loads it back up
-when u start it up again
+  when u start it up again
 - You don't need to manually save or load; Jackson handles it every time you say bye.
