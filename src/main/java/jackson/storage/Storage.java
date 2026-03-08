@@ -1,5 +1,6 @@
 package jackson.storage;
 
+import jackson.parser.Parser;
 import jackson.task.Task;
 import jackson.task.Todo;
 import jackson.task.Event;
@@ -45,7 +46,7 @@ public class Storage {
                 String[] lineSplit = line.split("\\|");
                 tasks.addTask(lineSplit[1].trim());
                 if (lineSplit[0].trim().equals("X")) {
-                    tasks.updateMarkStatus(tasks, "mark " + tasks.size());
+                    Parser.updateMarkStatus(tasks, "mark " + tasks.size());
                 }
             }
             return tasks;

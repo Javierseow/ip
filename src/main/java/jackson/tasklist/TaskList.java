@@ -61,27 +61,11 @@ public class TaskList {
         return tasks.remove(indexToRemove);
     }
 
-    public int updateMarkStatus(TaskList tasks, String line) throws JacksonException {
-        try {
-            String[] inputs = Parser.splitInput(line, " ", 0);
-
-            int taskNumber = Integer.parseInt(inputs[1].trim());
-
-            if (taskNumber > tasks.size() || taskNumber <= 0) {
-                throw new JacksonException("Bro that task doesn't exist");
-            }
-
-            if (inputs[0].startsWith("mark")) {
-                tasks.getItemAtIndex(taskNumber - 1).markAsDone();
-            } else {
-                tasks.getItemAtIndex(taskNumber - 1).markAsUndone();
-            }
-            return taskNumber;
-
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new JacksonException("Pls provide a task number to mark");
-        } catch (NumberFormatException e) {
-            throw new JacksonException("Bro ur task number ain't valid lol");
+    public static void updateMarkStatus(String command, int taskNumber) throws JacksonException {
+        if (command.equals("mark")) {
+            getItemAtIndex(taskNumber).markAsDone();
+        } else {
+            getItemAtIndex(taskNumber).markAsUndone();
         }
     }
 

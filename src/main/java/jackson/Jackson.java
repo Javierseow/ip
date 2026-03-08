@@ -40,7 +40,7 @@ public class Jackson {
             case "mark":
             case "unmark":
                 try {
-                    int taskNumber = tasks.updateMarkStatus(tasks, line);
+                    int taskNumber = Parser.updateMarkStatus(tasks, line);
                     ui.printStatus(instruction, taskNumber, TaskList.getItemAtIndex(taskNumber - 1));
                 } catch (JacksonException e) {
                     Ui.showErrorMessage(e.getMessage());
