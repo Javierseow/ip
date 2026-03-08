@@ -3,6 +3,7 @@ package jackson;
 import jackson.parser.Parser;
 import jackson.storage.Storage;
 import jackson.exception.JacksonException;
+import jackson.task.Task;
 import jackson.tasklist.TaskList;
 import jackson.ui.Ui;
 
@@ -40,7 +41,7 @@ public class Jackson {
             case "unmark":
                 try {
                     int taskNumber = tasks.updateMarkStatus(tasks, line);
-                    ui.printStatus(instruction, taskNumber, tasks.getItemAtIndex(taskNumber - 1));
+                    ui.printStatus(instruction, taskNumber, TaskList.getItemAtIndex(taskNumber - 1));
                 } catch (JacksonException e) {
                     Ui.showErrorMessage(e.getMessage());
                 }
@@ -51,7 +52,7 @@ public class Jackson {
             case "event":
                 try {
                     tasks.addTask(line);
-                    ui.printTaskAdded(tasks.getItemAtIndex(tasks.size() - 1));
+                    ui.printTaskAdded(TaskList.getItemAtIndex(tasks.size() - 1));
                     ui.printNumberOfItems(tasks);
                 } catch (JacksonException e) {
                     Ui.showErrorMessage(e.getMessage());
@@ -60,7 +61,8 @@ public class Jackson {
 
             case "delete":
                 try {
-                    tasks.deleteTask(line);
+                    Task taskDeleted = Parser.deleteTask(line);
+                    ui.printTaskDeleted(taskDeleted);
                     ui.printNumberOfItems(tasks);
                 } catch (JacksonException e) {
                     Ui.showErrorMessage(e.getMessage());

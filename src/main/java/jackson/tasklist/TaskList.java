@@ -1,18 +1,16 @@
 package jackson.tasklist;
 
-import jackson.Jackson;
 import jackson.exception.JacksonException;
 import jackson.parser.Parser;
 import jackson.task.Deadline;
 import jackson.task.Event;
 import jackson.task.Task;
 import jackson.task.Todo;
-import jackson.ui.Ui;
 
 import java.util.ArrayList;
 
 public class TaskList {
-    private ArrayList<Task> tasks;
+    private static ArrayList<Task> tasks;
 
     public TaskList() {
         tasks = new ArrayList<>();
@@ -59,22 +57,8 @@ public class TaskList {
                 taskInfo[2].trim().substring(3).trim()));
     }
 
-    public void deleteTask(String line) throws JacksonException {
-        try {
-            String[] inputs = Parser.splitInput(line, " ", 0);
-
-            int indexToRemove = Integer.parseInt(inputs[1]) - 1;
-            Task removedItem = tasks.remove(indexToRemove);
-            Ui.showMessage("Aight. I've removed this task:");
-            Ui.showMessageNoLine("  ");
-            Ui.showMessage(String.valueOf(removedItem));
-        } catch (NumberFormatException e) {
-            throw new JacksonException("Eh, pls give a valid task number");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            throw new JacksonException("Bro what task do u wanna delete?");
-        } catch (IndexOutOfBoundsException e) {
-            throw new JacksonException("Error, the task doesn't exist");
-        }
+    public static Task deleteTask(int indexToRemove) {
+        return tasks.remove(indexToRemove);
     }
 
     public int updateMarkStatus(TaskList tasks, String line) throws JacksonException {
@@ -109,7 +93,7 @@ public class TaskList {
         return tasks.size();
     }
 
-    public Task getItemAtIndex(int index) {
+    public static Task getItemAtIndex(int index) {
         return tasks.get(index);
     }
 
