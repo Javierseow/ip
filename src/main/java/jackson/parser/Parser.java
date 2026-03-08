@@ -198,7 +198,7 @@ public class Parser {
             }
             return taskExists;
         } catch (ArrayIndexOutOfBoundsException e) {
-            throw new JacksonException("bro u didn't say any keyword");
+            throw new JacksonException("Bro u didn't say any keyword");
         }
     }
 }
