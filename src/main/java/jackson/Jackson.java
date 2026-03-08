@@ -51,7 +51,7 @@ public class Jackson {
             case "deadline":
             case "event":
                 try {
-                    tasks.addTask(line);
+                    Parser.addTask(line);
                     ui.printTaskAdded(TaskList.getItemAtIndex(tasks.size() - 1));
                     ui.printNumberOfItems(tasks);
                 } catch (JacksonException e) {

@@ -44,7 +44,7 @@ public class Storage {
             while (fileIn.hasNextLine()) {
                 String line = fileIn.nextLine();
                 String[] lineSplit = line.split("\\|");
-                tasks.addTask(lineSplit[1].trim());
+                Parser.addTask(lineSplit[1].trim());
                 if (lineSplit[0].trim().equals("X")) {
                     Parser.updateMarkStatus(tasks, "mark " + tasks.size());
                 }
@@ -52,6 +52,8 @@ public class Storage {
             return tasks;
         } catch (FileNotFoundException e) {
             throw new JacksonException("Error loading file");
+        } catch (JacksonException e) {
+            throw new JacksonException("Errors found in file, creating new list for you");
         }
     }
 
